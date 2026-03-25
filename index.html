@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streak Tracker</title>
+    <title>🔥 Streak Tracker</title>
     <style>
         :root {
             --color-bg-base: #0f172a;
@@ -18,7 +18,6 @@
             --color-warning: #f59e0b;
             --color-danger: #ef4444;
         }
-
         @media (prefers-color-scheme: light) {
             :root {
                 --color-bg-base: #ffffff;
@@ -29,13 +28,7 @@
                 --color-text-muted: #64748b;
             }
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--color-bg-base);
@@ -43,468 +36,397 @@
             padding: 20px;
             line-height: 1.6;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--color-primary);
-        }
-
-        .add-form {
-            background: var(--color-bg-surface);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .form-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-        }
-
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--color-primary); }
+        .add-form { background: var(--color-bg-surface); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; }
+        .form-row { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .form-group { flex: 1; min-width: 200px; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--color-text-secondary); font-size: 0.9rem; }
         input, select, textarea {
-            width: 100%;
-            padding: 0.75rem;
+            width: 100%; padding: 0.75rem;
             background: var(--color-bg-base);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 8px;
             color: var(--color-text-primary);
             font-size: 1rem;
         }
-
-        textarea {
-            resize: vertical;
-            min-height: 60px;
-            font-family: inherit;
-        }
-
+        textarea { resize: vertical; min-height: 60px; font-family: inherit; }
         button {
-            background: var(--color-primary);
-            color: var(--color-bg-base);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
+            background: var(--color-primary); color: var(--color-bg-base);
+            border: none; padding: 0.75rem 1.5rem;
+            border-radius: 8px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: background 0.2s;
         }
-
-        button:hover {
-            background: var(--color-primary-hover);
-        }
-
-        .btn-danger {
-            background: var(--color-danger);
-        }
-
-        .btn-danger:hover {
-            background: #dc2626;
-        }
-
-        .btn-success {
-            background: var(--color-success);
-        }
-
-        .btn-success:hover {
-            background: #059669;
-        }
-
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
-
-        .streaks-list {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .streak-card {
-            background: var(--color-bg-surface);
-            border-radius: 12px;
-            padding: 1.5rem;
-            position: relative;
-        }
-
-        .streak-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .streak-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--color-text-primary);
-        }
-
-        .streak-url {
-            color: var(--color-primary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            word-break: break-all;
-        }
-
-        .streak-url:hover {
-            text-decoration: underline;
-        }
-
-        .streak-info {
-            display: grid;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-        }
-
-        .info-label {
-            color: var(--color-text-muted);
-        }
-
-        .info-value {
-            color: var(--color-text-secondary);
-            font-weight: 500;
-        }
-
-        .timer-display {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .timer-expired {
-            color: var(--color-danger);
-        }
-
-        .timer-warning {
-            color: var(--color-warning);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-active {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--color-success);
-        }
-
-        .status-due-soon {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--color-warning);
-        }
-
-        .status-overdue {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--color-danger);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--color-text-muted);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--color-bg-surface);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            margin-top: 0.25rem;
-        }
-
+        button:hover { background: var(--color-primary-hover); }
+        .btn-danger { background: var(--color-danger); }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-success { background: var(--color-success); }
+        .btn-success:hover { background: #059669; }
+        .btn-small { padding: 0.5rem 1rem; font-size: 0.9rem; }
+        .streaks-list { display: grid; gap: 1rem; }
+        .streak-card { background: var(--color-bg-surface); border-radius: 12px; padding: 1.5rem; position: relative; }
+        .streak-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
+        .streak-title { font-size: 1.25rem; font-weight: 600; color: var(--color-text-primary); }
+        .streak-url { color: var(--color-primary); text-decoration: none; font-size: 0.9rem; word-break: break-all; }
+        .streak-url:hover { text-decoration: underline; }
+        .streak-info { display: grid; gap: 0.75rem; margin-top: 1rem; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+        .info-label { color: var(--color-text-muted); }
+        .info-value { color: var(--color-text-secondary); font-weight: 500; }
+        .timer-display { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); text-align: center; margin: 1rem 0; }
+        .timer-expired { color: var(--color-danger); }
+        .timer-warning { color: var(--color-warning); }
+        .action-buttons { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+        .status-badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .status-active { background: rgba(16,185,129,0.15); color: var(--color-success); }
+        .status-due-soon { background: rgba(245,158,11,0.15); color: var(--color-warning); }
+        .status-overdue { background: rgba(239,68,68,0.15); color: var(--color-danger); }
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--color-text-muted); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--color-bg-surface); padding: 1rem; border-radius: 8px; text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--color-primary); }
+        .stat-label { font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.25rem; }
         .help-text {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            background: rgba(56, 189, 248, 0.1);
-            padding: 0.75rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
+            font-size: 0.85rem; color: var(--color-text-muted);
+            background: rgba(56,189,248,0.1); padding: 0.75rem;
+            border-radius: 6px; margin-bottom: 1rem;
             border-left: 3px solid var(--color-primary);
         }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-success), var(--color-primary));
-            transition: width 0.3s ease;
-        }
-
-        .streak-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-warning);
-            margin-right: 0.5rem;
-        }
-
+        .progress-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-top: 0.5rem; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--color-success), var(--color-primary)); transition: width 0.3s ease; }
+        .streak-number { font-size: 2rem; font-weight: 700; color: var(--color-warning); margin-right: 0.5rem; }
+        #resetTimeGroup { display: none; }
         @media (max-width: 640px) {
-            .form-row {
-                flex-direction: column;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            button {
-                width: 100%;
-            }
+            .form-row { flex-direction: column; }
+            .action-buttons { flex-direction: column; }
+            button { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔥 Streak Tracker</h1>
+<div class="container">
+    <h1>🔥 Streak Tracker</h1>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value" id="totalStreaks">0</div>
-                <div class="stat-label">Total Streaks</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="activeStreaks">0</div>
-                <div class="stat-label">Active</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="overdueStreaks">0</div>
-                <div class="stat-label">Due Soon</div>
-            </div>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="totalStreaks">0</div>
+            <div class="stat-label">Total Streaks</div>
         </div>
-
-        <div class="add-form">
-            <h2 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Add New Streak</h2>
-            <div class="help-text">
-                💡 <strong>Quick Tip:</strong> For mobile apps, use the app store link or leave URL blank. Check-ins work without URLs!<br>
-                🔢 You can optionally type your current streak days (e.g., 429) and it will calculate and fill the Start Date for you.
-            </div>
-            <form id="addStreakForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="appName">App/Game Name *</label>
-                        <input type="text" id="appName" required placeholder="e.g., Wordle, Duolingo">
-                    </div>
-                    <div class="form-group">
-                        <label for="appUrl">Website/App URL</label>
-                        <input type="text" id="appUrl" placeholder="https://example.com">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="streakDays">Streak Days (optional)</label>
-                        <input type="number" id="streakDays" min="0" placeholder="e.g., 429 (if you already know your streak)">
-                        <small style="display: block; margin-top: 0.25rem; color: var(--color-text-muted);">
-                            If you fill this and leave Start Date empty, it will calculate when your streak started.
-                        </small>
-                    </div>
-                    <div class="form-group">
-                        <label for="startDate">Start Date</label>
-                        <input type="date" id="startDate">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="rewardType">Reward Type *</label>
-                        <select id="rewardType" required onchange="toggleResetTimeField()">
-                            <option value="interval-1">Every 1 hour (from check-in)</option>
-                            <option value="interval-2">Every 2 hours (from check-in)</option>
-                            <option value="interval-3">Every 3 hours (from check-in)</option>
-                            <option value="interval-4">Every 4 hours (from check-in)</option>
-                            <option value="interval-6">Every 6 hours (from check-in)</option>
-                            <option value="interval-8">Every 8 hours (from check-in)</option>
-                            <option value="interval-12">Every 12 hours (from check-in)</option>
-                            <option value="interval-24">Every 24 hours (from check-in)</option>
-                            <option value="daily-reset">Daily Reset (specific time)</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="resetTimeGroup" style="display: none;">
-                        <label for="resetTime">Daily Reset Time</label>
-                        <input type="time" id="resetTime" value="00:00">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Notes (optional)</label>
-                    <textarea id="notes" placeholder="Reward details, streak goals, etc."></textarea>
-                </div>
-                <button type="submit">Add Streak</button>
-            </form>
+        <div class="stat-card">
+            <div class="stat-value" id="activeStreaks">0</div>
+            <div class="stat-label">Active</div>
         </div>
-
-        <div id="streaksList" class="streaks-list"></div>
+        <div class="stat-card">
+            <div class="stat-value" id="overdueStreaks">0</div>
+            <div class="stat-label">Due Soon</div>
+        </div>
     </div>
 
-    <script>
-        let streaks = [];
-        let timerInterval = null;
+    <div class="add-form">
+        <h2 style="margin-bottom:0.5rem;font-size:1.25rem;">Add New Streak</h2>
+        <div class="help-text">
+            💡 <strong>Quick Tip:</strong> For mobile apps, use the app store link or leave URL blank.<br>
+            🔢 Enter your current streak days and leave Start Date empty to auto-calculate the start date.
+        </div>
+        <form id="addStreakForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="appName">App/Game Name *</label>
+                    <input type="text" id="appName" required placeholder="e.g., Wordle, Duolingo">
+                </div>
+                <div class="form-group">
+                    <label for="appUrl">Website/App URL</label>
+                    <input type="text" id="appUrl" placeholder="https://example.com">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="streakDays">Current Streak Days (optional)</label>
+                    <input type="number" id="streakDays" min="0" placeholder="e.g., 429">
+                    <small style="display:block;margin-top:0.25rem;color:var(--color-text-muted);">
+                        Fill this to auto-calculate Start Date.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="rewardType">Reward Frequency *</label>
+                    <select id="rewardType" required onchange="toggleResetTimeField()">
+                        <option value="interval-4">Every 4 hours</option>
+                        <option value="interval-6">Every 6 hours</option>
+                        <option value="interval-8">Every 8 hours</option>
+                        <option value="interval-12">Every 12 hours</option>
+                        <option value="interval-24">Every 24 hours (Daily)</option>
+                        <option value="daily-reset">Daily Reset (specific time)</option>
+                        <option value="interval-1">Every 1 hour</option>
+                        <option value="interval-2">Every 2 hours</option>
+                        <option value="interval-3">Every 3 hours</option>
+                    </select>
+                </div>
+                <div class="form-group" id="resetTimeGroup">
+                    <label for="resetTime">Daily Reset Time</label>
+                    <input type="time" id="resetTime" value="00:00">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom:1rem;">
+                <label for="notes">Notes (optional)</label>
+                <textarea id="notes" placeholder="Reward details, streak goals, etc."></textarea>
+            </div>
+            <button type="submit">Add Streak</button>
+        </form>
+    </div>
 
-        function loadStreaks() {
-            const saved = window.streaksData || '[]';
-            try {
-                streaks = typeof saved === 'string' ? JSON.parse(saved) : saved;
-            } catch (e) {
-                streaks = [];
-            }
-            renderStreaks();
-            startTimer();
+    <div id="streaksList" class="streaks-list"></div>
+</div>
+
+<script>
+    let streaks = [];
+    let timerInterval = null;
+
+    function loadStreaks() {
+        try {
+            const saved = localStorage.getItem('streakTrackerData');
+            streaks = saved ? JSON.parse(saved) : [];
+        } catch(e) { streaks = []; }
+        renderStreaks();
+        startTimer();
+    }
+
+    function saveStreaks() {
+        localStorage.setItem('streakTrackerData', JSON.stringify(streaks));
+    }
+
+    function toggleResetTimeField() {
+        const val = document.getElementById('rewardType').value;
+        document.getElementById('resetTimeGroup').style.display = val === 'daily-reset' ? 'block' : 'none';
+    }
+
+    function getNextDueTime(streak) {
+        if (!streak.lastChecked) return null;
+        const lastChecked = new Date(streak.lastChecked);
+        if (streak.resetType === 'daily') {
+            const [hours, minutes] = streak.resetTime.split(':');
+            const nextReset = new Date();
+            nextReset.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+            if (nextReset <= new Date()) nextReset.setDate(nextReset.getDate() + 1);
+            return nextReset;
+        } else {
+            return new Date(lastChecked.getTime() + streak.intervalHours * 3600000);
         }
+    }
 
-        function saveStreaks() {
-            window.streaksData = streaks;
-        }
+    function formatTimeRemaining(ms) {
+        if (ms <= 0) return '⏰ Reward Available!';
+        const totalSec = Math.floor(ms / 1000);
+        const h = Math.floor(totalSec / 3600);
+        const m = Math.floor((totalSec % 3600) / 60);
+        const s = totalSec % 60;
+        return `${h}h ${m.toString().padStart(2,'0')}m ${s.toString().padStart(2,'0')}s`;
+    }
 
-        function getNextDueTime(streak) {
-            if (!streak.lastChecked) return null;
-            
-            const lastChecked = new Date(streak.lastChecked);
-            
-            if (streak.resetType === 'daily') {
-                const [hours, minutes] = streak.resetTime.split(':');
-                const nextReset = new Date();
-                nextReset.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-                
-                if (nextReset <= new Date()) {
-                    nextReset.setDate(nextReset.getDate() + 1);
-                }
-                
-                return nextReset;
-            } else {
-                return new Date(lastChecked.getTime() + streak.intervalHours * 60 * 60 * 1000);
-            }
-        }
+    function updateStats() {
+        const now = new Date();
+        let active = 0, overdue = 0;
+        streaks.forEach(streak => {
+            const nextDue = getNextDueTime(streak);
+            if (!nextDue) return;
+            if (nextDue - now <= 0) overdue++;
+            else active++;
+        });
+        document.getElementById('totalStreaks').textContent = streaks.length;
+        document.getElementById('activeStreaks').textContent = active;
+        document.getElementById('overdueStreaks').textContent = overdue;
+    }
 
-        function renderStreaks() {
-            const container = document.getElementById('streaksList');
-            
-            if (streaks.length === 0) {
-                container.innerHTML = '<div class="empty-state"><h3>No streaks yet!</h3><p>Add your first app or game above to start tracking.</p></div>';
-                updateStats();
-                return;
-            }
-
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
             const now = new Date();
-            streaks.sort((a, b) => {
-                const aTime = a.lastChecked ? getNextDueTime(a).getTime() : 0;
-                const bTime = b.lastChecked ? getNextDueTime(b).getTime() : 0;
-                return aTime - bTime;
+            document.querySelectorAll('[data-index]').forEach(el => {
+                const index = parseInt(el.dataset.index);
+                const streak = streaks[index];
+                if (!streak) return;
+                const nextDue = getNextDueTime(streak);
+                if (!nextDue) return;
+                const diff = nextDue - now;
+                if (diff <= 0) {
+                    el.className = 'timer-display timer-expired';
+                    el.textContent = '⏰ Reward Available!';
+                } else if (diff <= 3600000) {
+                    el.className = 'timer-display timer-warning';
+                    el.textContent = formatTimeRemaining(diff);
+                } else {
+                    el.className = 'timer-display';
+                    el.textContent = formatTimeRemaining(diff);
+                }
             });
+            updateStats();
+        }, 1000);
+    }
 
-            container.innerHTML = streaks.map((streak, index) => {
-                const lastChecked = streak.lastChecked ? new Date(streak.lastChecked) : null;
-                const nextDue = lastChecked ? getNextDueTime(streak) : null;
-                const timeUntil = nextDue ? nextDue - now : null;
-                
-                let status = 'active';
-                let statusText = 'Active';
-                let timerHTML = '';
-                
-                if (lastChecked && nextDue) {
-                    const hoursUntil = timeUntil / (1000 * 60 * 60);
-                    
-                    if (timeUntil <= 0) {
-                        status = 'overdue';
-                        statusText = 'Ready to Claim!';
-                        timerHTML = '<div class="timer-display timer-expired">⏰ Reward Available!</div>';
-                    } else if (hoursUntil <= 1) {
-                        status = 'due-soon';
-                        statusText = 'Due Soon';
-                        timerHTML = `<div class="timer-display timer-warning" data-index="${index}">Calculating...</div>`;
-                    } else {
-                        timerHTML = `<div class="timer-display" data-index="${index}">Calculating...</div>`;
-                    }
+    function renderStreaks() {
+        const container = document.getElementById('streaksList');
+        if (streaks.length === 0) {
+            container.innerHTML = '<div class="empty-state"><h3>No streaks yet!</h3><p>Add your first app or game above to start tracking.</p></div>';
+            updateStats();
+            return;
+        }
+
+        const now = new Date();
+        streaks.sort((a, b) => {
+            const aTime = a.lastChecked ? getNextDueTime(a).getTime() : 0;
+            const bTime = b.lastChecked ? getNextDueTime(b).getTime() : 0;
+            return aTime - bTime;
+        });
+
+        container.innerHTML = streaks.map((streak, index) => {
+            const lastChecked = streak.lastChecked ? new Date(streak.lastChecked) : null;
+            const nextDue = lastChecked ? getNextDueTime(streak) : null;
+            const timeUntil = nextDue ? nextDue - now : null;
+
+            let status = 'active', statusText = 'Active', timerHTML = '';
+            if (lastChecked && nextDue) {
+                const hoursUntil = timeUntil / 3600000;
+                if (timeUntil <= 0) {
+                    status = 'overdue'; statusText = 'Ready to Claim!';
+                    timerHTML = '<div class="timer-display timer-expired">⏰ Reward Available!</div>';
+                } else if (hoursUntil <= 1) {
+                    status = 'due-soon'; statusText = 'Due Soon';
+                    timerHTML = `<div class="timer-display timer-warning" data-index="${index}">${formatTimeRemaining(timeUntil)}</div>`;
+                } else {
+                    timerHTML = `<div class="timer-display" data-index="${index}">${formatTimeRemaining(timeUntil)}</div>`;
                 }
+            } else {
+                timerHTML = '<div class="timer-display" style="color:var(--color-text-muted);font-size:1rem;">No check-in yet — click Check In below!</div>';
+            }
 
-                const startDate = streak.startDate ? new Date(streak.startDate).toLocaleDateString() : 'N/A';
-                const lastCheckedStr = lastChecked ? lastChecked.toLocaleString() : 'Never';
-                const totalChecks = streak.checkCount || 0;
-                
-                const daysSinceStart = streak.startDate ? Math.floor((now - new Date(streak.startDate)) / (1000 * 60 * 60 * 24)) : 0;
-                const streakDays = daysSinceStart > 0 ? daysSinceStart : 0;
-                
-                let progressPercent = 0;
-                if (lastChecked && nextDue) {
-                    if (streak.resetType === 'daily') {
-                        const millisInDay = 24 * 60 * 60 * 1000;
-                        const timeSinceLastReset = now - lastChecked;
-                        progressPercent = Math.min(100, (timeSinceLastReset / millisInDay) * 100);
-                    } else {
-                        const totalInterval = streak.intervalHours * 60 * 60 * 1000;
-                        const elapsed = now - lastChecked;
-                        progressPercent = Math.min(100, (elapsed / totalInterval) * 100);
-                    }
-                }
-                
-                const frequencyText = streak.resetType === 'daily' 
-                    ? `Daily at ${streak.resetTime}` 
-                    : `Every ${streak.intervalHours} hours`;
+            const startDate = streak.startDate ? new Date(streak.startDate + 'T12:00:00').toLocaleDateString() : 'N/A';
+            const lastCheckedStr = lastChecked ? lastChecked.toLocaleString() : 'Never';
+            const streakDays = streak.startDate
+                ? Math.max(0, Math.floor((now - new Date(streak.startDate + 'T12:00:00')) / 86400000))
+                : 0;
 
-                return `
-                    <div class="streak-card">
-                        <div class="streak-header">
+            let progressPercent = 0;
+            if (lastChecked && nextDue) {
+                const totalInterval = streak.resetType === 'daily' ? 86400000 : streak.intervalHours * 3600000;
+                progressPercent = Math.min(100, ((now - lastChecked) / totalInterval) * 100);
+            }
+
+            const frequencyText = streak.resetType === 'daily'
+                ? `Daily at ${streak.resetTime}`
+                : `Every ${streak.intervalHours} hours`;
+
+            return `
+            <div class="streak-card">
+                <div class="streak-header">
+                    <div>
+                        <div style="display:flex;align-items:center;margin-bottom:0.5rem;">
+                            ${streakDays > 0 ? `<span class="streak-number">${streakDays}</span>` : ''}
                             <div>
-                                <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
-                                    ${streakDays > 0 ? `<span class="streak-number">${streakDays}</span>` : ''}
+                                <div class="streak-title">${streak.name}</div>
+                                ${streak.url ? `<a href="${streak.url}" target="_blank" rel="noopener" class="streak-url">${streak.url}</a>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <span class="status-badge status-${status}">${statusText}</span>
+                </div>
+                ${timerHTML}
+                <div class="progress-bar"><div class="progress-fill" style="width:${progressPercent}%"></div></div>
+                <div class="streak-info">
+                    <div class="info-row">
+                        <span class="info-label">Frequency</span>
+                        <span class="info-value">${frequencyText}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Started</span>
+                        <span class="info-value">${startDate}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Last Check-in</span>
+                        <span class="info-value">${lastCheckedStr}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Total Check-ins</span>
+                        <span class="info-value">${streak.checkCount || 0}</span>
+                    </div>
+                    ${streak.notes ? `<div class="info-row"><span class="info-label">Notes</span><span class="info-value">${streak.notes}</span></div>` : ''}
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-success btn-small" onclick="checkIn(${index})">✅ Check In</button>
+                    ${streak.url ? `<button class="btn-small" onclick="window.open('${streak.url}','_blank')">🔗 Open App</button>` : ''}
+                    <button class="btn-danger btn-small" onclick="deleteStreak(${index})">🗑 Delete</button>
+                </div>
+            </div>`;
+        }).join('');
+
+        updateStats();
+    }
+
+    function checkIn(index) {
+        streaks[index].lastChecked = new Date().toISOString();
+        streaks[index].checkCount = (streaks[index].checkCount || 0) + 1;
+        saveStreaks();
+        renderStreaks();
+    }
+
+    function deleteStreak(index) {
+        if (confirm(`Delete "${streaks[index].name}"?`)) {
+            streaks.splice(index, 1);
+            saveStreaks();
+            renderStreaks();
+        }
+    }
+
+    document.getElementById('addStreakForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('appName').value.trim();
+        const url = document.getElementById('appUrl').value.trim();
+        const rewardType = document.getElementById('rewardType').value;
+        const resetTime = document.getElementById('resetTime').value;
+        const notes = document.getElementById('notes').value.trim();
+        const streakDaysInput = parseInt(document.getElementById('streakDays').value);
+        let startDate = document.getElementById('startDate').value;
+
+        if (!startDate && !isNaN(streakDaysInput) && streakDaysInput > 0) {
+            const calc = new Date();
+            calc.setDate(calc.getDate() - streakDaysInput);
+            startDate = calc.toISOString().split('T')[0];
+        }
+
+        let resetType, intervalHours;
+        if (rewardType === 'daily-reset') {
+            resetType = 'daily';
+            intervalHours = 24;
+        } else {
+            resetType = 'interval';
+            intervalHours = parseInt(rewardType.split('-')[1]);
+        }
+
+        streaks.push({
+            id: Date.now(),
+            name,
+            url: url || null,
+            resetType,
+            intervalHours,
+            resetTime: resetType === 'daily' ? resetTime : null,
+            startDate: startDate || new Date().toISOString().split('T')[0],
+            notes: notes || null,
+            lastChecked: null,
+            checkCount: 0
+        });
+
+        saveStreaks();
+        renderStreaks();
+        this.reset();
+        document.getElementById('resetTimeGroup').style.display = 'none';
+    });
+
+    loadStreaks();
+</script>
+</body>
+</html>
